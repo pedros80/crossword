@@ -20,4 +20,4 @@ GNU GPL - see LICENSE.txt for more information
 None required
 
 ### System Requirements.
-[`python 2.x`](http://www.python.org).
+[`python 2.x`](http://www.python.org) and [`Tkinter`](https://wiki.python.org/moin/TkInter).
