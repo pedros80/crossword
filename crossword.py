@@ -13,7 +13,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
+This program is distributed in the hope that it will be useful, 
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -44,7 +44,7 @@ class Application(TK.Frame):
             print "IOError opening file; try again"
             sys.exit(1)
 
-        TK.Frame.__init__(self,master, bg="black")
+        TK.Frame.__init__(self, master, bg="black")
         
         self.pack()
         self.histoDict = self.getHistos()
@@ -65,7 +65,7 @@ class Application(TK.Frame):
                 histoDict[letters] = [word]
         return histoDict
         
-    def getPossible_a(self,event):
+    def getPossible_a(self, event):
         """ just calls self.getPossible(), throw away event
             passed from keyboard """
         self.getPossible()
@@ -95,7 +95,7 @@ class Application(TK.Frame):
                     return False
         return True
 
-    def permLookup_a(self,event):
+    def permLookup_a(self, event):
         """ call permLookup, passed event since used keyboard """
         self.permLookup()
                
@@ -113,9 +113,9 @@ class Application(TK.Frame):
         newWords.sort(key=len)
         newWords.reverse()
         
-        self.results.insert(TK.END,"Found %d Words" % len(newWords))
-        self.results.insert(TK.END,"From %s [%d]" % (word,len(word)))
-        self.results.insert(TK.END,"")
+        self.results.insert(TK.END, "Found %d Words" % len(newWords))
+        self.results.insert(TK.END, "From %s [%d]" % (word, len(word)))
+        self.results.insert(TK.END, "")
         for w in newWords:
             self.results.insert(TK.END, w.strip() + " [%d]" % len(w))
 
@@ -132,8 +132,7 @@ class Application(TK.Frame):
             word.pop(index)
         return True
 
-
-    def checkWord_a(self,event):
+    def checkWord_a(self, event):
         """ helper function for checking word with keyboard
         """
         self.checkWord()
@@ -153,7 +152,7 @@ class Application(TK.Frame):
         else:
             self.results.insert(TK.END, "IS NOT a valid crossword")
             
-    def quit_a(self,event):
+    def quit_a(self, event):
         """ quit from keyboard, don't need the event """
         self.quit()
         
@@ -178,7 +177,7 @@ class Application(TK.Frame):
         self.getPossiblesBttn = TK.Button(self.buttonFrame, text="Get Maybes", command=self.getPossible, width=10, bg="black", fg="white")
         self.getPossiblesBttn.bind("<Return>", self.getPossible_a)
         self.getPossiblesBttn.pack()
-        self.quitButton = TK.Button (self.buttonFrame, text="Quit",command=self.quit, width=10, bg="red", fg="white")
+        self.quitButton = TK.Button (self.buttonFrame, text="Quit", command=self.quit, width=10, bg="red", fg="white")
         self.quitButton.bind("<Return>", self.quit_a)
         self.quitButton.pack()
         
