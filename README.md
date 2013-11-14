@@ -14,7 +14,6 @@ GNU GPL - see LICENSE.txt for more information
 ### Useage
 
 - `python crossword.py` to use included word list 
-
 - or place your own wordlist in the directory and `python crossword.py file_name`
 
 ### Installation.
