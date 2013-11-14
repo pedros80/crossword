@@ -8,7 +8,7 @@ GNU GPL - see LICENSE.txt for more information
 
 - Check if a word is a word.
 - Get words, sub-words and anagrams from a word or collection of letters.
-- Get possible solutions if your potential solution has words missing. (e.g he__o)
+- Get possible words if your potential solution has letters missing. (e.g he__o)
 - Comes with an open source word list.
 
 ### Useage
