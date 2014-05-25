@@ -40,7 +40,7 @@ except ImportError:
 class Application(TK.Frame):
     def __init__(self, words=None, master=None):
 
-        self.api_key = "" # ADD YOUR API KEY HERE 
+        self.api_key = "6c9c44d6-7216-4bfa-bdd8-ee1d3f8583fa" # ADD YOUR API KEY HERE 
         self.def_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/{0}?key={1}"
         self.got_remote = False
         if words is None:
