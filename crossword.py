@@ -40,7 +40,7 @@ except ImportError:
 class Application(TK.Frame):
     def __init__(self, words=None, master=None):
 
-        self.api_key = "" # ADD YOUR API KEY HERE 
+        self.api_key = "6c9c44d6-7216-4bfa-bdd8-ee1d3f8583fa" # ADD YOUR API KEY HERE 
         self.def_url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/{0}?key={1}"
         self.got_remote = False
         if words is None:
@@ -82,7 +82,7 @@ class Application(TK.Frame):
         histo_dict = dict()
         for word in self.word_list:
             letters = ''.join(sorted(word))
-            if letters in histo_dict:
+            if letters in histo_dict and word not in histo_dict[letters]:
                 histo_dict[letters].append(word)
             else:
                 histo_dict[letters] = [word]
@@ -129,6 +129,7 @@ class Application(TK.Frame):
         if self.api_key:
             selected = int(self.results.curselection()[0])
             if selected > 2:
+                self.clear_widget(self.definitions)
                 val = self.results.get(selected)
                 if len(val.strip()) > 0 and len(val.split(" ")) == 1:
                     self.clear_widget(self.definitions)
@@ -150,9 +151,9 @@ class Application(TK.Frame):
                             else:         
                                 ew = entry.find('ew').text # word from def
                                 fl = entry.find('fl').text
-                                self.definitions.insert(TK.END, " ")
+                                self.definitions.insert(TK.END, "")
                                 self.definitions.insert(TK.END, "{0} <{1}>".format(ew, fl))
-                                self.definitions.insert(TK.END, " ")
+                                self.definitions.insert(TK.END, "")
                                 entry_def = entry.find('def')
                                 for dt in entry_def.iter('dt'):
                                     if dt.text.strip(":").strip():
@@ -169,6 +170,8 @@ class Application(TK.Frame):
 
     def clear_entry(self):
         self.clear_widget(self.my_string)
+        self.clear_widget(self.results)
+        self.clear_widget(self.definitions)
 
     def clear_entry_a(self, event):
         self.clear_entry()
@@ -180,16 +183,17 @@ class Application(TK.Frame):
         """ update results to show any words possible from the string
             of characters entered by user up to len(word)
         """
-
         word = self.my_string.get().lower()
         self.clear_widget(self.results)
-
         if not word.strip():
             self.results.insert(TK.END, "Enter some letters...")
+        elif any(_ in word for _ in '?_*'):
+            self.results.insert(TK.END, "No wildcards, try again...")
         else:
             new_words = []
             for key in self.histo_dict.iterkeys():
                 if self.contains_letters(key, word):
+                    print key, word, self.histo_dict[key]
                     new_words.extend(self.histo_dict[key])
             new_words.sort(key=len)
             new_words.reverse()
@@ -228,6 +232,8 @@ class Application(TK.Frame):
         self.clear_widget(self.results)
         if not word.strip():
             self.results.insert(TK.END, "Enter a possible...")
+        elif any(_ in word for _ in '?_*'):
+            self.results.insert(TK.END, "No wildcards, try again...")
         else:
             letters = "".join(sorted(word))
 
@@ -238,8 +244,8 @@ class Application(TK.Frame):
                 result_str = "No {} IS NOT a valid crossword".format(word)
             self.results.insert(TK.END, result_str)
             if is_word:
-                self.results.insert(TK.END, "\n")
-                self.results.insert(TK.END, "\n")
+                self.results.insert(TK.END, "")
+                self.results.insert(TK.END, "")
                 self.results.insert(TK.END, word)
 
     def quit_a(self, event):
