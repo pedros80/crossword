@@ -131,6 +131,8 @@ class Application(TK.Frame):
             if selected > 2:
                 self.clear_widget(self.definitions)
                 val = self.results.get(selected)
+                if '[' in val:
+                    val = val[0:val.find('[')]
                 if len(val.strip()) > 0 and len(val.split(" ")) == 1:
                     self.clear_widget(self.definitions)
                     try:
@@ -193,7 +195,6 @@ class Application(TK.Frame):
             new_words = []
             for key in self.histo_dict.iterkeys():
                 if self.contains_letters(key, word):
-                    print key, word, self.histo_dict[key]
                     new_words.extend(self.histo_dict[key])
             new_words.sort(key=len)
             new_words.reverse()
