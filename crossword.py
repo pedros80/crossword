@@ -45,7 +45,7 @@ class Application(TK.Frame):
         self.got_remote = False
         if words is None:
             try:
-                address = 'http://red2.sunderland.ac.uk/py/words.txt'
+                address = 'https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt'
                 print "trying to open remote word list at {}".format(address)
                 request = urllib2.urlopen(address)
                 self.word_list = request.read().split(' ')
