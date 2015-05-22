@@ -48,7 +48,7 @@ class Application(TK.Frame):
                 address = 'https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt'
                 print "trying to open remote word list at {}".format(address)
                 request = urllib2.urlopen(address)
-                self.word_list = request.read().split(' ')
+                self.word_list = request.read().split('\n')
                 self.got_remote = True
                 print "got remote word list"
             except urllib2.URLError, e:
