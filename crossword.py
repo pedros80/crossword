@@ -186,6 +186,7 @@ class Application(TK.Frame):
             of characters entered by user up to len(word)
         """
         word = self.my_string.get().lower()
+        selected_length = int(self.length_select.get())
         self.clear_widget(self.results)
         if not word.strip():
             self.results.insert(TK.END, "Enter some letters...")
@@ -195,7 +196,8 @@ class Application(TK.Frame):
             new_words = []
             for key in self.histo_dict.iterkeys():
                 if self.contains_letters(key, word):
-                    new_words.extend(self.histo_dict[key])
+                    if (selected_length > 0 and len(key) == selected_length) or selected_length == 0:
+                        new_words.extend(self.histo_dict[key])
             new_words.sort(key=len)
             new_words.reverse()
 
@@ -264,9 +266,15 @@ class Application(TK.Frame):
                                   text="Enter Letters and/or Wildcards",
                                   bg="black", fg="white")
         self.entry_lbl.pack()
-        self.my_string = TK.Entry(self.entry_frame, width=40)
+        self.my_string = TK.Entry(self.entry_frame, width=40, bg="black", fg="white")
         self.my_string.pack()
         self.my_string.focus_set()
+        self.length_lbl = TK.Label(self.entry_frame, 
+                                   text="Select Length of permutation (optional)",
+                                   bg="black", fg="white")
+        self.length_lbl.pack()
+        self.length_select = TK.Spinbox(self.entry_frame, from_=0, to=100, bg="black", fg="white", width="20")
+        self.length_select.pack()
 
         self.get_perms_btn = TK.Button(self.btn_frame, text="Get Perms",
                                        command=self.perm_lookup, width=20,
