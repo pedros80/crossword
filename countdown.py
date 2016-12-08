@@ -38,9 +38,11 @@ class Application(TK.Frame):
 
    def get_a_conundrum(self):
       conundrum = list(random.choice(self.conundrums))
-      print "".join(conundrum)
       random.shuffle(conundrum)
       return "".join(conundrum)
+
+   def get_number_target(self):
+      return random.randint(100,999)
 
    def get_word_list(self, words):
       if words is None:
@@ -63,7 +65,7 @@ class Application(TK.Frame):
          try:
             if not self.got_remote:
                with open(words_file_name) as f:
-                  self.word_list = [line.rstrip() for line in f]
+                  self.word_list = [line.rstrip().lower() for line in f]
          except IOError:
             sys.exit("IOError opening file; try again")
 
@@ -71,8 +73,6 @@ class Application(TK.Frame):
 def main():
    app = Application()
    app.master.title("Countdown")
-   print len(app.word_list)
-   print app.get_a_conundrum()
    app.mainloop()
 
 if __name__ == '__main__':
