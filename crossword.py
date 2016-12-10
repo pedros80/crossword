@@ -151,14 +151,18 @@ class Application(TK.Frame):
                             if suggestions:
                                 self.definitions.insert(TK.END, entry.text)
                             else:         
-                                ew = entry.find('ew').text # word from def
-                                fl = entry.find('fl').text
+                                ew = entry.find('ew')
+                                if ew is not None:
+                                    ew = ew.text # word from def
+                                fl = entry.find('fl')
+                                if fl is not None:
+                                    fl = fl.text
                                 self.definitions.insert(TK.END, "")
                                 self.definitions.insert(TK.END, "{0} <{1}>".format(ew, fl))
                                 self.definitions.insert(TK.END, "")
                                 entry_def = entry.find('def')
                                 for dt in entry_def.iter('dt'):
-                                    if dt.text.strip(":").strip():
+                                    if dt.text is not None and dt.text.strip(":").strip():
                                         self.definitions.insert(TK.END, dt.text)
                     except urllib2.URLError, e:
                         self.clear_widget(self.definitions)
@@ -174,6 +178,8 @@ class Application(TK.Frame):
         self.clear_widget(self.my_string)
         self.clear_widget(self.results)
         self.clear_widget(self.definitions)
+        self.clear_widget(self.length_select)
+        self.length_select.insert(0, "0")
 
     def clear_entry_a(self, event):
         self.clear_entry()
